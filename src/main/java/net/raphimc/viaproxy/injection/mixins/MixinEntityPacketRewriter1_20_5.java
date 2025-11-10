@@ -27,7 +27,7 @@ import com.viaversion.viaversion.protocols.v1_20_3to1_20_5.Protocol1_20_3To1_20_
 import com.viaversion.viaversion.protocols.v1_20_3to1_20_5.packet.ClientboundPackets1_20_5;
 import com.viaversion.viaversion.protocols.v1_20_3to1_20_5.rewriter.EntityPacketRewriter1_20_5;
 import com.viaversion.viaversion.rewriter.EntityRewriter;
-import net.raphimc.vialegacy.api.LegacyProtocolVersion;
+import net.raphimc.viaproxy.stubs.LegacyProtocolVersion;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;

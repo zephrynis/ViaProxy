@@ -28,7 +28,7 @@ import net.raphimc.netminecraft.constants.MCPipeline;
 import net.raphimc.netminecraft.netty.codec.NoReadFlowControlHandler;
 import net.raphimc.netminecraft.netty.connection.MinecraftChannelInitializer;
 import net.raphimc.netminecraft.packet.registry.DefaultPacketRegistry;
-import net.raphimc.viabedrock.api.BedrockProtocolVersion;
+import net.raphimc.viaproxy.stubs.BedrockProtocolVersion;
 import net.raphimc.viaproxy.ViaProxy;
 import net.raphimc.viaproxy.plugins.events.Proxy2ServerChannelInitializeEvent;
 import net.raphimc.viaproxy.plugins.events.types.ITyped;

@@ -31,7 +31,7 @@ import net.raphimc.netminecraft.constants.ConnectionState;
 import net.raphimc.netminecraft.constants.MCPipeline;
 import net.raphimc.netminecraft.util.EventLoops;
 import net.raphimc.netminecraft.util.TransportType;
-import net.raphimc.viabedrock.protocol.data.ProtocolConstants;
+import net.raphimc.viaproxy.stubs.ProtocolConstants;
 import net.raphimc.viaproxy.ViaProxy;
 import org.cloudburstmc.netty.channel.raknet.RakChannelFactory;
 import org.cloudburstmc.netty.channel.raknet.config.RakChannelOption;

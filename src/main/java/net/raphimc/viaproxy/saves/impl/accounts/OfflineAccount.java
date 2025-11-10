@@ -18,7 +18,7 @@
 package net.raphimc.viaproxy.saves.impl.accounts;
 
 import com.google.gson.JsonObject;
-import net.raphimc.vialegacy.api.util.GameProfileUtil;
+import net.raphimc.viaproxy.stubs.GameProfileUtil;
 
 import java.util.UUID;
 

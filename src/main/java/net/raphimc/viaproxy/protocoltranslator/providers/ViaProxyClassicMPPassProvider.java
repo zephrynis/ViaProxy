@@ -23,8 +23,8 @@ import com.viaversion.viaversion.api.connection.UserConnection;
 import net.lenni0451.commons.httpclient.HttpClient;
 import net.lenni0451.commons.httpclient.handler.ThrowingResponseHandler;
 import net.lenni0451.commons.httpclient.requests.impl.GetRequest;
-import net.raphimc.vialegacy.protocol.classic.c0_28_30toa1_0_15.provider.ClassicMPPassProvider;
-import net.raphimc.vialegacy.protocol.release.r1_2_4_5tor1_3_1_2.provider.OldAuthProvider;
+import net.raphimc.viaproxy.stubs.ViaLegacyProviders.ClassicMPPassProvider;
+import net.raphimc.viaproxy.stubs.ViaLegacyProviders.OldAuthProvider;
 import net.raphimc.viaproxy.ViaProxy;
 import net.raphimc.viaproxy.proxy.session.ProxyConnection;
 

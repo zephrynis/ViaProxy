@@ -18,7 +18,7 @@
 package net.raphimc.viaproxy.protocoltranslator.providers;
 
 import com.viaversion.viaversion.api.connection.UserConnection;
-import net.raphimc.vialegacy.protocol.release.r1_2_4_5tor1_3_1_2.provider.OldAuthProvider;
+import net.raphimc.viaproxy.stubs.ViaLegacyProviders.OldAuthProvider;
 import net.raphimc.viaproxy.proxy.external_interface.ExternalInterface;
 import net.raphimc.viaproxy.proxy.session.ProxyConnection;
 

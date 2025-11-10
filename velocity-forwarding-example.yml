@@ -1,0 +1,37 @@
+# Example ViaProxy Configuration for Velocity Modern Forwarding
+#
+# This is an example configuration showing the minimal setup needed
+# to enable Velocity modern forwarding in ViaProxy.
+#
+# Copy the relevant sections to your viaproxy.yml file.
+
+# Network Configuration
+bind-address: "0.0.0.0:25565"
+target-address: "127.0.0.1:25566"
+target-version: "AUTO"
+
+# Authentication
+proxy-online-mode: false
+auth-method: "NONE"
+
+# BungeeCord Forwarding (MUST BE DISABLED when using Velocity forwarding)
+bungeecord-player-info-passthrough: false
+
+# Velocity Modern Forwarding Configuration
+# Enable this to forward player info using Velocity's modern protocol
+velocity-player-info-passthrough: true
+
+# Path to the Velocity forwarding secret file
+# - Leave empty to use "forwarding.secret" in the ViaProxy directory
+# - Specify absolute path: "/path/to/forwarding.secret"
+# - Specify relative path: "secrets/forwarding.secret"
+velocity-secret: ""
+
+# Other recommended settings
+rewrite-handshake-packet: true
+compression-threshold: 256
+connect-timeout: 8000
+
+# Logging (useful for debugging)
+log-ips: true
+log-client-status-requests: false

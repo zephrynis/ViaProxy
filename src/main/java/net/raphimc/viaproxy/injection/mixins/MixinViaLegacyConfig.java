@@ -17,7 +17,7 @@
  */
 package net.raphimc.viaproxy.injection.mixins;
 
-import net.raphimc.vialegacy.ViaLegacyConfig;
+import net.raphimc.viaproxy.stubs.ViaLegacyConfig;
 import net.raphimc.viaproxy.ViaProxy;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

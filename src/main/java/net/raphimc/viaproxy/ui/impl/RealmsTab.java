@@ -25,11 +25,9 @@ import net.lenni0451.commons.swing.layouts.VerticalLayout;
 import net.raphimc.minecraftauth.MinecraftAuth;
 import net.raphimc.minecraftauth.responsehandler.exception.RealmsRequestException;
 import net.raphimc.minecraftauth.service.realms.AbstractRealmsService;
-import net.raphimc.minecraftauth.service.realms.BedrockRealmsService;
 import net.raphimc.minecraftauth.service.realms.JavaRealmsService;
 import net.raphimc.minecraftauth.service.realms.model.RealmsWorld;
-import net.raphimc.viabedrock.api.BedrockProtocolVersion;
-import net.raphimc.viabedrock.protocol.data.ProtocolConstants;
+import net.raphimc.viaproxy.stubs.BedrockProtocolVersion;
 import net.raphimc.viaproxy.ViaProxy;
 import net.raphimc.viaproxy.saves.impl.accounts.Account;
 import net.raphimc.viaproxy.saves.impl.accounts.BedrockAccount;
@@ -112,9 +110,9 @@ public class RealmsTab extends UITab {
                         if (this.currentAccount instanceof MicrosoftAccount account) {
                             final JavaRealmsService realmsService = new JavaRealmsService(MinecraftAuth.createHttpClient(), Iterables.getLast(this.currentSelectedJavaVersion.getIncludedVersions()), account.getMcProfile());
                             this.loadRealms(realmsService, body, statusLabel);
-                        } else if (this.currentAccount instanceof BedrockAccount account) {
-                            final BedrockRealmsService realmsService = new BedrockRealmsService(MinecraftAuth.createHttpClient(), ProtocolConstants.BEDROCK_VERSION_NAME, account.getRealmsXsts());
-                            this.loadRealms(realmsService, body, statusLabel);
+                        } else if (this.currentAccount instanceof BedrockAccount) {
+                            // Bedrock Realms removed in minimal ViaProxy fork
+                            statusLabel.setText("Bedrock Realms support removed");
                         } else {
                             statusLabel.setText(I18n.get("tab.realms.unsupported_account"));
                         }

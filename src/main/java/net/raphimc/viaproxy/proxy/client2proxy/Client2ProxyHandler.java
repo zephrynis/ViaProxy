@@ -19,7 +19,7 @@ package net.raphimc.viaproxy.proxy.client2proxy;
 
 import com.google.common.collect.Lists;
 import com.google.common.net.HostAndPort;
-import com.viaversion.viabackwards.protocol.v1_20_5to1_20_3.storage.CookieStorage;
+import net.raphimc.viaproxy.stubs.CookieStorage;
 import com.viaversion.viaversion.api.connection.UserConnection;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import com.viaversion.viaversion.api.protocol.version.VersionType;
@@ -31,8 +31,8 @@ import net.raphimc.netminecraft.constants.ConnectionState;
 import net.raphimc.netminecraft.constants.IntendedState;
 import net.raphimc.netminecraft.packet.Packet;
 import net.raphimc.netminecraft.packet.impl.handshaking.C2SHandshakingClientIntentionPacket;
-import net.raphimc.viabedrock.api.BedrockProtocolVersion;
-import net.raphimc.vialegacy.api.LegacyProtocolVersion;
+import net.raphimc.viaproxy.stubs.BedrockProtocolVersion;
+import net.raphimc.viaproxy.stubs.LegacyProtocolVersion;
 import net.raphimc.viaproxy.ViaProxy;
 import net.raphimc.viaproxy.plugins.events.ConnectEvent;
 import net.raphimc.viaproxy.plugins.events.PreConnectEvent;
@@ -280,6 +280,23 @@ public class Client2ProxyHandler extends SimpleChannelInboundHandler<Packet> {
             handshakePort = clientHandshakeAddress.getPort();
         }
 
+        // Handle Velocity modern forwarding by appending forwarding data to handshake
+        if (ViaProxy.getConfig().shouldPassthroughVelocityPlayerInfo() && intendedState.getConnectionState() == ConnectionState.LOGIN) {
+            // Load the Velocity secret if not already loaded
+            if (!net.raphimc.viaproxy.proxy.util.VelocityForwardingUtil.isSecretLoaded()) {
+                try {
+                    if (!net.raphimc.viaproxy.proxy.util.VelocityForwardingUtil.loadSecret()) {
+                        Logger.LOGGER.error("Velocity forwarding is enabled but the secret key could not be loaded!");
+                        Logger.LOGGER.error("Please ensure forwarding.secret exists in the ViaProxy directory or disable velocity-player-info-passthrough");
+                        // Don't kick the client, just log the error and continue without forwarding
+                        // The backend server will reject the connection if it requires forwarding
+                    }
+                } catch (Exception e) {
+                    Logger.LOGGER.error("Failed to load Velocity forwarding secret", e);
+                }
+            }
+        }
+
         this.proxyConnection.connectToServer(serverAddress, serverVersion).addListeners((ThrowingChannelFutureListener) f -> {
             if (f.isSuccess()) {
                 f.channel().eventLoop().submit(() -> { // Reschedule so the packets get sent after the channel is fully initialized and active
@@ -287,7 +304,32 @@ public class Client2ProxyHandler extends SimpleChannelInboundHandler<Packet> {
                         this.proxyConnection.getChannel().writeAndFlush(HAProxyUtil.createMessage(this.proxyConnection.getC2P(), this.proxyConnection.getChannel(), clientVersion)).addListener(ChannelFutureListener.FIRE_EXCEPTION_ON_FAILURE);
                     }
 
-                    final C2SHandshakingClientIntentionPacket newHandshakePacket = new C2SHandshakingClientIntentionPacket(clientVersion.getOriginalVersion(), String.join("\0", handshakeParts), handshakePort, intendedState);
+                    // Inject Velocity modern forwarding data if enabled
+                    String[] finalHandshakeParts = handshakeParts;
+                    if (ViaProxy.getConfig().shouldPassthroughVelocityPlayerInfo() && 
+                        intendedState.getConnectionState() == ConnectionState.LOGIN && 
+                        this.proxyConnection.getGameProfile() != null) {
+                        try {
+                            byte[] forwardingData = net.raphimc.viaproxy.proxy.util.VelocityForwardingUtil.createForwardingData(
+                                this.proxyConnection.getGameProfile(),
+                                this.proxyConnection.getC2P().remoteAddress()
+                            );
+                            // Append Velocity forwarding: hostname\0VELOCITY_IP_FORWARDING\0<base64 data>
+                            String[] newHandshakeParts = new String[handshakeParts.length + 2];
+                            System.arraycopy(handshakeParts, 0, newHandshakeParts, 0, handshakeParts.length);
+                            newHandshakeParts[handshakeParts.length] = "VELOCITY_IP_FORWARDING";
+                            newHandshakeParts[handshakeParts.length + 1] = java.util.Base64.getEncoder().encodeToString(forwardingData);
+                            finalHandshakeParts = newHandshakeParts;
+                            
+                            Logger.u_info("velocity", this.proxyConnection, 
+                                "Injected Velocity modern forwarding for " + this.proxyConnection.getGameProfile().getName() + 
+                                " (payload: " + forwardingData.length + " bytes)");
+                        } catch (Exception e) {
+                            Logger.LOGGER.error("Failed to inject Velocity forwarding data", e);
+                        }
+                    }
+
+                    final C2SHandshakingClientIntentionPacket newHandshakePacket = new C2SHandshakingClientIntentionPacket(clientVersion.getOriginalVersion(), String.join("\0", finalHandshakeParts), handshakePort, intendedState);
                     this.proxyConnection.getChannel().writeAndFlush(newHandshakePacket).addListeners(ChannelFutureListener.FIRE_EXCEPTION_ON_FAILURE, (ChannelFutureListener) f2 -> {
                         if (f2.isSuccess()) {
                             final UserConnection userConnection = this.proxyConnection.getUserConnection();

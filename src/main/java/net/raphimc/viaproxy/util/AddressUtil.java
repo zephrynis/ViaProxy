@@ -22,8 +22,8 @@ import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import io.netty.channel.unix.DomainSocketAddress;
 import net.lenni0451.reflect.stream.RStream;
 import net.raphimc.netminecraft.util.MinecraftServerAddress;
-import net.raphimc.viabedrock.api.BedrockProtocolVersion;
-import net.raphimc.vialegacy.api.LegacyProtocolVersion;
+import net.raphimc.viaproxy.stubs.BedrockProtocolVersion;
+import net.raphimc.viaproxy.stubs.LegacyProtocolVersion;
 
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;

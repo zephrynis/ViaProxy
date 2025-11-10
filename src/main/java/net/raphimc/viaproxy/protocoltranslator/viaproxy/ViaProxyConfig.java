@@ -155,6 +155,22 @@ public class ViaProxyConfig {
     })
     private boolean bungeecordPlayerInfoPassthrough = false;
 
+    @Option("velocity-player-info-passthrough")
+    @Description({
+            "Enable Velocity modern forwarding mode for player info passthrough.",
+            "This sends player information (UUID, username, IP, properties) to the backend server using Velocity's modern forwarding protocol.",
+            "Requires a forwarding secret key to be configured. Cannot be used together with bungeecord-player-info-passthrough."
+    })
+    private boolean velocityPlayerInfoPassthrough = false;
+
+    @Option("velocity-secret")
+    @Description({
+            "Path to the Velocity forwarding secret file (e.g., forwarding.secret).",
+            "This file should contain the same secret key configured on the Velocity proxy.",
+            "Leave empty to use 'forwarding.secret' in the ViaProxy directory."
+    })
+    private String velocitySecret = "";
+
     @Option("rewrite-handshake-packet")
     @Description({
             "Enabling this will rewrite the address in the handshake packet to a value the vanilla client would have sent when connecting directly to the target server.",
@@ -477,6 +493,24 @@ public class ViaProxyConfig {
 
     public void setPassthroughBungeecordPlayerInfo(final boolean bungeecordPlayerInfoPassthrough) {
         this.bungeecordPlayerInfoPassthrough = bungeecordPlayerInfoPassthrough;
+        this.save();
+    }
+
+    public boolean shouldPassthroughVelocityPlayerInfo() {
+        return this.velocityPlayerInfoPassthrough;
+    }
+
+    public void setPassthroughVelocityPlayerInfo(final boolean velocityPlayerInfoPassthrough) {
+        this.velocityPlayerInfoPassthrough = velocityPlayerInfoPassthrough;
+        this.save();
+    }
+
+    public String getVelocitySecret() {
+        return this.velocitySecret;
+    }
+
+    public void setVelocitySecret(final String velocitySecret) {
+        this.velocitySecret = velocitySecret;
         this.save();
     }
 

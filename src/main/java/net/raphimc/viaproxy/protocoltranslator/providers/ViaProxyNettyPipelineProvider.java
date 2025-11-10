@@ -17,50 +17,23 @@
  */
 package net.raphimc.viaproxy.protocoltranslator.providers;
 
-import com.viaversion.vialoader.netty.VLPipeline;
 import com.viaversion.viaversion.api.connection.UserConnection;
-import io.netty.channel.Channel;
-import net.raphimc.netminecraft.constants.MCPipeline;
-import net.raphimc.viabedrock.api.io.compression.ProtocolCompression;
-import net.raphimc.viabedrock.netty.AesEncryptionCodec;
-import net.raphimc.viabedrock.netty.CompressionCodec;
-import net.raphimc.viabedrock.protocol.provider.NettyPipelineProvider;
-import net.raphimc.viaproxy.proxy.session.ProxyConnection;
+import net.raphimc.viaproxy.stubs.ViaBedrockProviders.NettyPipelineProvider;
 
 import javax.crypto.SecretKey;
 
 public class ViaProxyNettyPipelineProvider extends NettyPipelineProvider {
 
     @Override
-    public void enableCompression(UserConnection user, ProtocolCompression protocolCompression) {
-        final ProxyConnection proxyConnection = ProxyConnection.fromUserConnection(user);
-        final Channel channel = proxyConnection.getChannel();
-
-        if (channel.pipeline().names().contains(MCPipeline.COMPRESSION_HANDLER_NAME)) {
-            throw new IllegalStateException("Compression already enabled");
-        }
-
-        try {
-            channel.pipeline().addBefore(MCPipeline.SIZER_HANDLER_NAME, MCPipeline.COMPRESSION_HANDLER_NAME, new CompressionCodec(protocolCompression));
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+    public void enableCompression(UserConnection user, Object protocolCompression) {
+        // Bedrock support removed - stub implementation
+        throw new UnsupportedOperationException("Bedrock support removed in minimal ViaProxy fork");
     }
 
     @Override
     public void enableEncryption(UserConnection user, SecretKey key) {
-        final ProxyConnection proxyConnection = ProxyConnection.fromUserConnection(user);
-        final Channel channel = proxyConnection.getChannel();
-
-        if (channel.pipeline().names().contains(MCPipeline.ENCRYPTION_HANDLER_NAME)) {
-            throw new IllegalStateException("Encryption already enabled");
-        }
-
-        try {
-            channel.pipeline().addAfter(VLPipeline.VIABEDROCK_FRAME_ENCAPSULATION_HANDLER_NAME, MCPipeline.ENCRYPTION_HANDLER_NAME, new AesEncryptionCodec(key));
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
+        // Bedrock support removed - stub implementation
+        throw new UnsupportedOperationException("Bedrock support removed in minimal ViaProxy fork");
     }
 
 }

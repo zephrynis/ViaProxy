@@ -21,7 +21,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.vdurmont.semver4j.Semver;
+import net.raphimc.viaproxy.stubs.Semver;
 import net.raphimc.viaproxy.ViaProxy;
 import net.raphimc.viaproxy.ui.I18n;
 import net.raphimc.viaproxy.ui.ViaProxyWindow;

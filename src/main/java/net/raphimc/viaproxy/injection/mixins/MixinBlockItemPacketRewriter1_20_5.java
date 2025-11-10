@@ -36,7 +36,7 @@ import com.viaversion.viaversion.protocols.v1_20_3to1_20_5.Protocol1_20_3To1_20_
 import com.viaversion.viaversion.protocols.v1_20_3to1_20_5.packet.ServerboundPacket1_20_5;
 import com.viaversion.viaversion.protocols.v1_20_3to1_20_5.rewriter.BlockItemPacketRewriter1_20_5;
 import com.viaversion.viaversion.rewriter.ItemRewriter;
-import net.raphimc.vialegacy.api.LegacyProtocolVersion;
+import net.raphimc.viaproxy.stubs.LegacyProtocolVersion;
 import net.raphimc.viaproxy.ViaProxy;
 import net.raphimc.viaproxy.plugins.events.ViaLoadingEvent;
 import net.raphimc.viaproxy.protocoltranslator.impl.ViaProxyMappingDataLoader;

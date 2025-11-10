@@ -18,17 +18,12 @@
 package net.raphimc.viaproxy.protocoltranslator;
 
 import com.viaversion.vialoader.ViaLoader;
-import com.viaversion.vialoader.impl.platform.ViaAprilFoolsPlatformImpl;
-import com.viaversion.vialoader.impl.platform.ViaBackwardsPlatformImpl;
-import com.viaversion.vialoader.impl.platform.ViaBedrockPlatformImpl;
-import com.viaversion.vialoader.impl.platform.ViaRewindPlatformImpl;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import com.viaversion.viaversion.api.protocol.version.VersionType;
 import com.viaversion.viaversion.protocols.v1_20_3to1_20_5.Protocol1_20_3To1_20_5;
 import net.raphimc.viaproxy.ViaProxy;
 import net.raphimc.viaproxy.plugins.events.ProtocolTranslatorInitEvent;
 import net.raphimc.viaproxy.protocoltranslator.impl.ViaProxyVLLoader;
-import net.raphimc.viaproxy.protocoltranslator.impl.ViaProxyViaLegacyPlatformImpl;
 import net.raphimc.viaproxy.protocoltranslator.impl.ViaProxyViaVersionPlatformImpl;
 
 import java.io.File;
@@ -62,7 +57,9 @@ public class ProtocolTranslator {
 
     public static void init() {
         patchConfigs();
-        final Supplier<?>[] platformSuppliers = ViaProxy.EVENT_MANAGER.call(new ProtocolTranslatorInitEvent(ViaBackwardsPlatformImpl::new, ViaRewindPlatformImpl::new, ViaProxyViaLegacyPlatformImpl::new, ViaAprilFoolsPlatformImpl::new, ViaBedrockPlatformImpl::new)).getPlatformSuppliers().toArray(new Supplier[0]);
+        // Removed ViaBackwards, ViaRewind, ViaLegacy, ViaAprilFools, and ViaBedrock to reduce memory usage
+        // Only ViaVersion is now loaded for forward protocol translation
+        final Supplier<?>[] platformSuppliers = ViaProxy.EVENT_MANAGER.call(new ProtocolTranslatorInitEvent()).getPlatformSuppliers().toArray(new Supplier[0]);
         ViaLoader.init(new ViaProxyViaVersionPlatformImpl(), new ViaProxyVLLoader(), null, null, platformSuppliers);
         Protocol1_20_3To1_20_5.strictErrorHandling = false;
         ProtocolVersion.register(AUTO_DETECT_PROTOCOL);
@@ -87,27 +84,7 @@ public class ProtocolTranslator {
             throw new RuntimeException("Failed to patch ViaVersion config", e);
         }
 
-        try {
-            final File viaBackwardsConfig = new File(configFolder, "viabackwards.yml");
-            Files.writeString(viaBackwardsConfig.toPath(), """
-                    fix-1_13-face-player: 5
-                    handle-pings-as-inv-acknowledgements: true
-                    """, StandardOpenOption.CREATE_NEW);
-        } catch (FileAlreadyExistsException ignored) {
-        } catch (Throwable e) {
-            throw new RuntimeException("Failed to patch ViaBackwards config", e);
-        }
-
-        try {
-            final File viaRewindConfig = new File(configFolder, "viarewind.yml");
-            Files.writeString(viaRewindConfig.toPath(), """
-                    replace-adventure: true
-                    replace-particles: true
-                    """, StandardOpenOption.CREATE_NEW);
-        } catch (FileAlreadyExistsException ignored) {
-        } catch (Throwable e) {
-            throw new RuntimeException("Failed to patch ViaRewind config", e);
-        }
+        // Removed ViaBackwards, ViaRewind config patching - libraries not loaded
     }
 
 }

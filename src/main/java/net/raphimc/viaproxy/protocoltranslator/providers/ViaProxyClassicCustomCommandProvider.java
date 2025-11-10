@@ -18,9 +18,9 @@
 package net.raphimc.viaproxy.protocoltranslator.providers;
 
 import com.viaversion.viaversion.api.connection.UserConnection;
-import net.raphimc.vialegacy.ViaLegacy;
-import net.raphimc.vialegacy.protocol.alpha.a1_0_16_2toa1_0_17_1_0_17_4.storage.TimeLockStorage;
-import net.raphimc.vialegacy.protocol.classic.c0_28_30toa1_0_15.provider.ClassicCustomCommandProvider;
+import net.raphimc.viaproxy.stubs.ViaLegacy;
+import net.raphimc.viaproxy.stubs.TimeLockStorage;
+import net.raphimc.viaproxy.stubs.ViaLegacyProviders.ClassicCustomCommandProvider;
 
 import java.util.logging.Level;
 

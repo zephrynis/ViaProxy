@@ -26,10 +26,10 @@ import com.viaversion.viaversion.api.protocol.remapper.PacketHandler;
 import com.viaversion.viaversion.api.protocol.remapper.PacketHandlers;
 import com.viaversion.viaversion.api.type.Types;
 import com.viaversion.viaversion.api.type.types.chunk.ChunkType1_17;
-import net.raphimc.vialegacy.api.LegacyProtocolVersion;
-import net.raphimc.vialegacy.protocol.classic.c0_28_30toa1_0_15.model.ClassicLevel;
-import net.raphimc.vialegacy.protocol.classic.c0_28_30toa1_0_15.provider.ClassicWorldHeightProvider;
-import net.raphimc.vialegacy.protocol.classic.c0_28_30toa1_0_15.storage.ClassicLevelStorage;
+import net.raphimc.viaproxy.stubs.LegacyProtocolVersion;
+import net.raphimc.viaproxy.stubs.ClassicLevel;
+import net.raphimc.viaproxy.stubs.ViaLegacyProviders.ClassicWorldHeightProvider;
+import net.raphimc.viaproxy.stubs.ClassicLevelStorage;
 
 import java.util.ArrayList;
 import java.util.BitSet;

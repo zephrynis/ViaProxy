@@ -19,7 +19,7 @@ package net.raphimc.viaproxy.injection.mixins;
 
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import com.viaversion.viaversion.protocols.v1_21_2to1_21_4.rewriter.BlockItemPacketRewriter1_21_4;
-import net.raphimc.vialegacy.api.LegacyProtocolVersion;
+import net.raphimc.viaproxy.stubs.LegacyProtocolVersion;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;

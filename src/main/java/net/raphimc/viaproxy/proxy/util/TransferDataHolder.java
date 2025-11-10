@@ -18,7 +18,7 @@
 package net.raphimc.viaproxy.proxy.util;
 
 import com.google.common.cache.CacheBuilder;
-import com.viaversion.viabackwards.protocol.v1_20_5to1_20_3.storage.CookieStorage;
+import net.raphimc.viaproxy.stubs.CookieStorage;
 import io.netty.channel.Channel;
 
 import java.net.InetAddress;

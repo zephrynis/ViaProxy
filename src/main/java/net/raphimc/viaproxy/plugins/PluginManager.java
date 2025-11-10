@@ -17,7 +17,7 @@
  */
 package net.raphimc.viaproxy.plugins;
 
-import com.vdurmont.semver4j.Semver;
+import net.raphimc.viaproxy.stubs.Semver;
 import net.lenni0451.classtransform.TransformerManager;
 import net.lenni0451.classtransform.additionalclassprovider.GuavaClassPathProvider;
 import net.lenni0451.classtransform.additionalclassprovider.LazyFileClassProvider;

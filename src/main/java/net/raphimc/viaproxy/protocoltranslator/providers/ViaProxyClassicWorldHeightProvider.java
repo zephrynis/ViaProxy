@@ -19,7 +19,7 @@ package net.raphimc.viaproxy.protocoltranslator.providers;
 
 import com.viaversion.viaversion.api.connection.UserConnection;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
-import net.raphimc.vialegacy.protocol.classic.c0_28_30toa1_0_15.provider.ClassicWorldHeightProvider;
+import net.raphimc.viaproxy.stubs.ViaLegacyProviders.ClassicWorldHeightProvider;
 
 public class ViaProxyClassicWorldHeightProvider extends ClassicWorldHeightProvider {
 
